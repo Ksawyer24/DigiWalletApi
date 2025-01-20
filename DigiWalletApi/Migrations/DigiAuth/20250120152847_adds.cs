@@ -55,20 +55,6 @@ namespace DigiWalletApi.Migrations.DigiAuth
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityRole",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    NormalizedName = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityRole", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -219,9 +205,9 @@ namespace DigiWalletApi.Migrations.DigiAuth
                 });
 
             migrationBuilder.InsertData(
-                table: "IdentityRole",
+                table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "41ab8efd-35eb-4c93-8bed-19f320b9d15e", "41ab8efd-35eb-4c93-8bed-19f320b9d15e", "Saver", "SAVER" });
+                values: new object[] { new Guid("cab418b8-0fb1-4808-9b13-69fdde71721c"), "cab418b8-0fb1-4808-9b13-69fdde71721c", "Saver", "SAVER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -288,9 +274,6 @@ namespace DigiWalletApi.Migrations.DigiAuth
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "IdentityRole");
 
             migrationBuilder.DropTable(
                 name: "Transaction");

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DigiWalletApi.Migrations.DigiAuth
 {
     [DbContext(typeof(DigiAuthContext))]
-    [Migration("20250120112446_adds")]
+    [Migration("20250120152847_adds")]
     partial class adds
     {
         /// <inheritdoc />
@@ -162,34 +162,6 @@ namespace DigiWalletApi.Migrations.DigiAuth
                     b.ToTable("Wallet");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "41ab8efd-35eb-4c93-8bed-19f320b9d15e",
-                            ConcurrencyStamp = "41ab8efd-35eb-4c93-8bed-19f320b9d15e",
-                            Name = "Saver",
-                            NormalizedName = "SAVER"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -215,6 +187,15 @@ namespace DigiWalletApi.Migrations.DigiAuth
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("cab418b8-0fb1-4808-9b13-69fdde71721c"),
+                            ConcurrencyStamp = "cab418b8-0fb1-4808-9b13-69fdde71721c",
+                            Name = "Saver",
+                            NormalizedName = "SAVER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
