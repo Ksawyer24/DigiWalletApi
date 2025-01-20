@@ -35,7 +35,7 @@ builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
 
 
 builder.Services.AddIdentityCore<User>()
-  .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole<Guid>>() 
     .AddTokenProvider<DataProtectorTokenProvider<User>>("DigiWall")
     .AddEntityFrameworkStores<DigiAuthContext>()
     .AddDefaultTokenProviders();
