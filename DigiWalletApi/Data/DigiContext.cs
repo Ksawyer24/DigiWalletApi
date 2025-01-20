@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DigiWalletApi.Data
 {
-    public class DigiContext: IdentityDbContext<User, IdentityRole<Guid>, Guid>
+    public class DigiContext:DbContext
     {
         public DigiContext(DbContextOptions<DigiContext> contextOptions) :base(contextOptions) 
         {
