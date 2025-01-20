@@ -30,7 +30,7 @@ builder.Services.AddDbContext<DigiAuthContext>(options =>
 
 builder.Services.AddScoped<IWalletRepo, WalletRepo>();
 builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
-
+builder.Services.AddScoped<ITokenRepo, TokenRepo>();
 
 
 
