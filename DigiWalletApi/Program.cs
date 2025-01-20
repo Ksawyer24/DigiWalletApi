@@ -1,8 +1,10 @@
 using DigiWalletApi.Data;
 using DigiWalletApi.Mappings;
+using DigiWalletApi.Models;
 using DigiWalletApi.Repos;
 using DigiWalletApi.Repos.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -20,11 +22,35 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DigiContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DigiConnectionString")));
 
+builder.Services.AddDbContext<DigiAuthContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DigiAuthConnectionString")));
+
 
 
 
 builder.Services.AddScoped<IWalletRepo, WalletRepo>();
 builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
+
+
+
+
+builder.Services.AddIdentityCore<User>()
+  .AddRoles<IdentityRole>()
+    .AddTokenProvider<DataProtectorTokenProvider<User>>("DigiWall")
+    .AddEntityFrameworkStores<DigiAuthContext>()
+    .AddDefaultTokenProviders();
+
+
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 0;
+});
 
 
 builder.Services.AddAutoMapper(typeof(Maps));

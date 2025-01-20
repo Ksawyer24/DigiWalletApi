@@ -4,6 +4,6 @@ namespace DigiWalletApi.Repos.Interface
 {
     public interface ITokenRepo
     {
-        string CreateJWTToken(IdentityUser user, List<string> roles);
+        string CreateJWTToken(IdentityUser<Guid> user, List<string> roles);
     }
 }

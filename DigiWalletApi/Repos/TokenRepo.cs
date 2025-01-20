@@ -16,7 +16,9 @@ namespace DigiWalletApi.Repos
             this.configuration = configuration;
         }
 
-        public string CreateJWTToken(IdentityUser user, List<string> roles)
+      
+
+        public string CreateJWTToken(IdentityUser<Guid> user, List<string> roles)
         {
             //Create claims
             var claims = new List<Claim>();

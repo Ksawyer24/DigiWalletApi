@@ -35,7 +35,7 @@ namespace DigiWalletApi.Data
                   .HasOne(t => t.Wallet)
                   .WithMany(w => w.Transactions)
                   .HasForeignKey(t => t.WalletId);
-                 //.OnDelete(DeleteBehavior.Cascade);
+                
         }
 
     }

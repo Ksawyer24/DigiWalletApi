@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DigiWalletApi.Migrations
+namespace DigiWalletApi.Migrations.DigiAuth
 {
     /// <inheritdoc />
-    public partial class add_it : Migration
+    public partial class adds : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,6 +52,20 @@ namespace DigiWalletApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IdentityRole",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    NormalizedName = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityRole", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -161,7 +175,7 @@ namespace DigiWalletApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Wallets",
+                name: "Wallet",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -173,9 +187,9 @@ namespace DigiWalletApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wallets", x => x.Id);
+                    table.PrimaryKey("PK_Wallet", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Wallets_AspNetUsers_UserId",
+                        name: "FK_Wallet_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -183,7 +197,7 @@ namespace DigiWalletApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Transactions",
+                name: "Transaction",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -195,14 +209,19 @@ namespace DigiWalletApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transactions", x => x.Id);
+                    table.PrimaryKey("PK_Transaction", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_Wallets_WalletId",
+                        name: "FK_Transaction_Wallet_WalletId",
                         column: x => x.WalletId,
-                        principalTable: "Wallets",
+                        principalTable: "Wallet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "IdentityRole",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "41ab8efd-35eb-4c93-8bed-19f320b9d15e", "41ab8efd-35eb-4c93-8bed-19f320b9d15e", "Saver", "SAVER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -242,13 +261,13 @@ namespace DigiWalletApi.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_WalletId",
-                table: "Transactions",
+                name: "IX_Transaction_WalletId",
+                table: "Transaction",
                 column: "WalletId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Wallets_UserId",
-                table: "Wallets",
+                name: "IX_Wallet_UserId",
+                table: "Wallet",
                 column: "UserId");
         }
 
@@ -271,13 +290,16 @@ namespace DigiWalletApi.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Transactions");
+                name: "IdentityRole");
+
+            migrationBuilder.DropTable(
+                name: "Transaction");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Wallets");
+                name: "Wallet");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

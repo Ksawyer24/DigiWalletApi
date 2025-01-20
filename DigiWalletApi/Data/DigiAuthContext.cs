@@ -11,5 +11,29 @@ namespace DigiWalletApi.Data
         {
             
         }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Seed Roles into Database
+            var saverRoleId = "41ab8efd-35eb-4c93-8bed-19f320b9d15e";
+
+            var roles = new List<IdentityRole>
+            {
+
+            new IdentityRole
+            {
+                Id = saverRoleId,
+                ConcurrencyStamp = saverRoleId,
+                Name = "Saver",
+                NormalizedName = "SAVER"
+            }
+
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
+        }
     }
 }
